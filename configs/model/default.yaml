@@ -1,0 +1,28 @@
+# 模型架构配置
+_target_: src.models.penetrance_net.PenetranceNet
+
+# HyenaDNA预训练模型配置
+hyena_pretrained_model: "hyenadna-small-32k-seqlen"  # 预训练模型名称
+use_pretrained: true                                 # 是否使用预训练权重
+freeze_hyena: false                                  # 是否冻结HyenaDNA模型参数
+
+# 特征维度配置
+annotation_dim: 128                                  # 注释特征投影维度（适应42个特征，包含临床特征）
+gene_dim: 128                                        # 基因特征投影维度（从64增加到128，适应20个特征）
+hyena_output_dim: 256                                # HyenaDNA输出维度
+
+# 融合模块配置
+fusion_dim: 512                                      # 融合模块输出维度
+fusion_blocks: 4                                     # 融合模块层数
+fusion_activation: "tanh"                            # 融合模块激活函数
+
+# 输出头配置
+output_dim: 1                                        # 输出维度（外显率预测值）
+dropout_rate: 0.1                                    # Dropout比率
+
+# 特征列配置（从data配置中引用）
+annotation_columns: ${data.annotation_columns}
+gene_columns: ${data.gene_columns}
+
+# 优化器配置引用
+optimizer: ${optimizer}

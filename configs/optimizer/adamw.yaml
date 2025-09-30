@@ -1,0 +1,5 @@
+# AdamW优化器配置
+_name_: adamw                 # 优化器名称
+lr: 0.0001                    # 学习率
+weight_decay: 0.01            # 权重衰减（L2正则化）
+betas: [0.9, 0.999]           # Adam动量参数

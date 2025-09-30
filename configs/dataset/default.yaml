@@ -1,0 +1,105 @@
+# @package data
+# 数据集配置
+data_dir: ${hydra:runtime.cwd}/data  # 数据目录路径
+variants_file: variants_with_penetrance.common.all.with_info.feats.tsv  # 变异数据文件
+reference_genome: hg38.ml.fa         # 参考基因组文件
+
+# 序列参数
+seq_len: 2048                        # 序列长度
+center_on_variant: true              # 是否以变异为中心提取序列
+
+# 注释特征列 (变异级别特征，42个)
+annotation_columns: [
+  # 群体频率特征 (5个)
+  "gnomad41_AF",                     # 总体群体频率
+  "gnomad41_AF_afr",                 # 非洲人群频率
+  "gnomad41_AF_eas",                 # 东亚人群频率  
+  "gnomad41_AF_nfe",                 # 非芬兰欧洲人群频率
+  "gnomad41_AF_sas",                 # 南亚人群频率
+  
+  # 进化保守性评分 (4个)
+  "GERP++_RS",                       # GERP保守性评分
+  "phyloP100way",                    # phyloP 100物种保守性
+  "phastCons100way",                 # phastCons 100物种保守性
+  "phastCons17way",                  # phastCons 17物种保守性
+  
+  # 有害性预测评分 (15个核心预测器)
+  "SIFT_score",                      # SIFT有害性评分
+  "SIFT4G_score",                    # SIFT4G有害性评分
+  "Polyphen2_HDIV_score",            # PolyPhen2 HumDiv评分
+  "Polyphen2_HVAR_score",            # PolyPhen2 HumVar评分
+  "MetaSVM_score",                   # MetaSVM集成评分
+  "MetaLR_score",                    # MetaLR集成评分
+  "MetaRNN_score",                   # MetaRNN深度学习评分
+  "REVEL_score",                     # REVEL集成评分
+  "AlphaMissense_score",             # AlphaMissense AI评分
+  "ESM1b_score",                     # ESM1b蛋白语言模型评分
+  "PrimateAI_score",                 # PrimateAI深度学习评分
+  "CADD_phred",                      # CADD综合评分
+  "VEST4_score",                     # VEST4功能影响评分
+  "BayesDel_addAF_score",            # BayesDel贝叶斯评分
+  "ClinPred_score",                  # ClinPred临床预测评分
+  
+  # 剪接影响评分 (5个)
+  "SpliceAI",                        # SpliceAI剪接影响总评分
+  "DS_AG",                           # SpliceAI受体位点得分
+  "DS_AL",                           # SpliceAI受体位点丢失得分
+  "DS_DG",                           # SpliceAI供体位点得分
+  "DS_DL",                           # SpliceAI供体位点丢失得分
+  
+  # 表观遗传特征 (3个)
+  "EncodeH3K4me3-sum",               # H3K4me3组蛋白修饰信号
+  "EncodeH3K27ac-sum",               # H3K27ac组蛋白修饰信号
+  "EncodeDNase-sum",                 # DNase超敏感性信号
+  
+  # 非编码区评分 (3个)
+  "Dann_Phred",                      # DANN非编码区评分
+  "Fathmm_Mkl_Phred",                # FATHMM-MKL综合评分
+  "Linsight_Phred",                  # LINSIGHT非编码区评分
+  
+  # 🏥 临床致病性特征 (7个) - 新增！
+  "CLNSIG",                          # ClinVar临床意义 (致病性分类)
+  "CLNREVSTAT",                      # ClinVar审查状态  
+  "case_frequency",                  # 病例组频率 (关键！)
+  "control_frequency",               # 对照组频率 (关键！)
+  "SPARK_carriers",                  # SPARK队列携带者数
+  "UKB_carriers",                    # UK Biobank携带者数
+  "ClinPred_pred"                    # ClinPred临床预测结果
+]
+
+# 基因特征列 (基因级别特征，约20个)
+gene_columns: [
+  # 基因约束性指标 (6个核心)
+  "pLI",                             # 功能缺失不耐受性概率
+  "LOEUF",                           # 功能缺失观察/期望上限
+  "mis_z",                           # 错义变异Z-score
+  "oe_lof",                          # 功能缺失观察/期望比
+  "oe_mis",                          # 错义变异观察/期望比
+  "oe_syn",                          # 同义变异观察/期望比
+  
+  # 脑特异性表达特征 (7个)
+  "Astro_avg_exp",                   # 星形胶质细胞平均表达
+  "Excitatory_avg_exp",              # 兴奋性神经元平均表达
+  "Inhibitory_avg_exp",              # 抑制性神经元平均表达
+  "Microglia_avg_exp",               # 小胶质细胞平均表达
+  "Oligodendrocyte_avg_exp",         # 少突胶质细胞平均表达
+  "OPC_avg_exp",                     # 少突胶质前体细胞平均表达
+  "Vascular_avg_exp",                # 血管细胞平均表达
+  
+  # 组织表达特征 (3个)
+  "GTEx_MEAN",                       # GTEx多组织平均表达
+  "CENTRAL_NERVOUS_SYSTEM_MEAN",     # 中枢神经系统平均表达
+  "BrainSpan_MEAN",                  # BrainSpan脑发育表达
+  
+  # 基因功能重要性 (4个)
+  "DSI",                             # 疾病特异性指数
+  "DPI",                             # 药物-蛋白质交互指数
+  "GDI",                             # 基因损伤指数
+  "HI_Score"                         # 单倍体不充分评分
+]
+
+# 数据集划分比例：训练集/验证集/测试集
+train_val_test_split: [0.7, 0.15, 0.15]
+
+# 批处理配置
+batch_size: 10

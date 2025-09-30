@@ -1,0 +1,19 @@
+# 检查点和早停回调配置
+
+# 模型检查点回调
+model_checkpoint:
+  monitor: ${train.monitor}            # 监控指标
+  mode: ${train.mode}                  # 优化方向
+  save_top_k: 3                        # 保存最佳的k个模型
+  save_last: True                      # 是否保存最后一个模型
+  dirpath: "checkpoints/${now:%Y-%m-%d_%H-%M-%S}/"  # 检查点保存目录
+  filename: ${train.monitor}           # 检查点文件名
+  auto_insert_metric_name: False       # 是否自动插入指标名称到文件名
+  verbose: True                        # 是否输出详细信息
+
+# 早停回调
+early_stopping:
+  monitor: ${train.monitor}            # 监控指标
+  mode: ${train.mode}                  # 优化方向
+  patience: 10                         # 耐心轮数
+  min_delta: 0                         # 最小改善阈值

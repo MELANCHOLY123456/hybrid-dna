@@ -1,0 +1,30 @@
+# @package _global_
+# 基础实验配置文件，定义默认的组件配置组合
+
+# 配置组合默认值
+defaults:
+  # 训练器配置
+  - /trainer: default
+  # 数据加载器配置
+  - /loader: default
+  # 数据集配置
+  - /dataset: default
+  # 模型配置
+  - /model: default
+  # 优化器配置
+  - /optimizer: adamw
+  # 调度器配置
+  - /scheduler: reduce_lr_on_plateau
+  # 回调函数配置
+  - /callbacks: [base, checkpoint]
+
+# 训练监控配置
+train:
+  monitor: val_loss             # 监控验证损失
+  mode: min                     # 优化方向为最小化
+
+# 任务配置
+task:
+  _name_: penetrance_prediction # 任务名称
+  loss: mse                     # 损失函数
+  metrics: ['mse']              # 评估指标

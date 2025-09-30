@@ -1,0 +1,36 @@
+# @package _global_
+# 全局配置文件，定义项目的默认设置和Hydra配置
+
+# 配置组合默认值
+defaults:
+  - _self_
+  - experiment: base
+
+# 训练配置参数
+train:
+  seed: 42                      # 随机种子，用于确保实验可重现性
+  monitor: val_loss             # 监控指标，用于模型选择和早停
+  mode: min                     # 监控指标优化方向，min表示越小越好
+  test: False                   # 是否在训练后运行测试
+  validate_at_start: false      # 是否在训练开始前运行验证
+  pretrained_model_path: null   # 预训练模型路径，null表示不使用预训练模型
+  pretrained_model_strict_load: true  # 是否严格加载预训练模型权重
+  ckpt: null                    # 检查点路径，用于恢复训练
+
+# Weights & Biases 配置
+wandb:
+  project: vep_model            # 项目名称
+  group: ""                     # 实验组名称
+  job_type: training            # 任务类型
+  mode: online                  # 运行模式：online/offline/disabled
+  name: null                    # 实验名称
+  save_dir: "."                 # 保存目录
+
+# Hydra 配置
+hydra:
+  run:
+    # 输出目录格式：年-月-日/时-分-秒-微秒
+    dir: ./outputs/${now:%Y-%m-%d}/${now:%H-%M-%S-%f}
+  job:
+    # 不改变工作目录
+    chdir: False

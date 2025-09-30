@@ -1,0 +1,15 @@
+# PyTorch Lightning 训练器配置
+_target_: pytorch_lightning.Trainer
+
+# 硬件配置
+devices: 1                    # 使用的设备数量
+accelerator: auto             # 自动选择加速器（CPU/GPU/TPU）
+
+# 训练配置
+accumulate_grad_batches: 2    # 梯度累积步数，模拟更大的批次大小
+max_epochs: 100               # 最大训练轮数
+gradient_clip_val: 1.0        # 梯度裁剪值，防止梯度爆炸
+log_every_n_steps: 10         # 日志记录频率（步数）
+limit_train_batches: 1.0      # 训练批次比例，1.0表示使用全部数据
+limit_val_batches: 1.0        # 验证批次比例，1.0表示使用全部数据
+precision: 32                 # 计算精度，32位浮点数

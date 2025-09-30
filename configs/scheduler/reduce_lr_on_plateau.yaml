@@ -1,0 +1,13 @@
+# @package _global_
+# ReduceLROnPlateau学习率调度器配置
+
+# 训练间隔配置
+train:
+  interval: epoch             # 调度器更新间隔单位
+
+# 调度器配置
+scheduler:
+  _name_: plateau             # 调度器名称
+  mode: min                   # 优化方向，min表示监控指标越小越好
+  factor: 0.5                 # 学习率衰减因子
+  patience: 5                 # 耐心轮数，指标不改善时等待的轮数

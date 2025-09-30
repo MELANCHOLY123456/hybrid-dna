@@ -1,0 +1,18 @@
+# 基础回调函数配置
+
+# 学习率监控回调
+learning_rate_monitor:
+  logging_interval: ${train.interval}  # 日志记录间隔
+
+# 计时器回调
+timer:
+  step: True                           # 是否记录每个步骤的时间
+  inter_step: False                    # 是否记录步骤间的时间
+  epoch: True                          # 是否记录每个轮次的时间
+  val: True                            # 是否记录验证时间
+
+# 参数统计回调
+params:
+  total: True                          # 是否显示总参数数量
+  trainable: True                      # 是否显示可训练参数数量
+  fixed: True                          # 是否显示固定参数数量
