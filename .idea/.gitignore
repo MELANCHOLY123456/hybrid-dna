@@ -12,3 +12,5 @@
 /checkpoints/
 /data/
 __pycache__/ 
+scripts\__pycache__
+src\__pycache__
