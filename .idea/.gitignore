@@ -6,3 +6,9 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# ===== 大文件 & 模型权重 =====
+# 根目录下 checkpoints 整个目录（含子目录）
+/checkpoints/
+/data/
+__pycache__/ 
