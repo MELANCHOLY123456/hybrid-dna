@@ -1,0 +1,27 @@
+[2025-10-01 15:57:12,846][__main__][INFO] - 成功加载变异数据，共 208727 条记录
+[2025-10-01 15:57:12,846][__main__][INFO] - 数据列: ['varid', 'Func', 'Gene', 'GeneDetail', 'ExonicFunc', 'AAChange', 'gnomad41_AF', 'gnomad41_AF_raw', 'gnomad41_AF_XX', 'gnomad41_AF_XY']...（显示前10列）
+[2025-10-01 15:57:12,846][__main__][INFO] - 总共 346 列
+[2025-10-01 15:57:12,846][__main__][INFO] - 找到可能的标签列: ['penetrance_estimates', 'penetrance_estimates_Upper', 'penetrance_estimates_Lower']
+[2025-10-01 15:57:12,848][src.data.genome_processor][INFO] - Loaded reference genome from E:\hybrid-dna/data/hg38.ml.fa
+[2025-10-01 15:57:12,849][src.data.genome_processor][INFO] - Available chromosomes: ['chr1', 'chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18']...
+[2025-10-01 15:57:12,849][__main__][INFO] - 正在加载 HyenaDNA 模型: hyenadna-small-32k-seqlen
+[2025-10-01 15:57:13,139][__main__][INFO] - 开始分批提取序列embedding，共 408 批，每批 512 条记录...
+[2025-10-01 15:57:13,139][__main__][INFO] - 处理第 1/408 批 (0-512)
+[2025-10-01 15:57:17,108][__main__][INFO] - 批次 1 embedding提取完成，已提交保存任务
+[2025-10-01 15:57:17,130][__main__][INFO] - 处理第 2/408 批 (512-1024)
+[2025-10-01 15:57:20,653][__main__][INFO] - 批次 2 embedding提取完成，已提交保存任务
+[2025-10-01 15:57:26,189][__main__][INFO] - 批次 1 保存完成！数据已保存到 E:\hybrid-dna/data/processed/variants_with_embeddings_hyenadna-small-32k-seqlen_batch_0.npz
+[2025-10-01 15:57:26,208][__main__][INFO] - 处理第 3/408 批 (1024-1536)
+[2025-10-01 15:57:29,640][__main__][INFO] - 批次 2 保存完成！数据已保存到 E:\hybrid-dna/data/processed/variants_with_embeddings_hyenadna-small-32k-seqlen_batch_1.npz
+[2025-10-01 15:57:29,733][__main__][INFO] - 批次 3 embedding提取完成，已提交保存任务
+[2025-10-01 15:57:29,755][__main__][INFO] - 处理第 4/408 批 (1536-2048)
+[2025-10-01 15:57:33,186][__main__][INFO] - 批次 4 embedding提取完成，已提交保存任务
+[2025-10-01 15:57:41,743][__main__][INFO] - 批次 3 保存完成！数据已保存到 E:\hybrid-dna/data/processed/variants_with_embeddings_hyenadna-small-32k-seqlen_batch_2.npz
+[2025-10-01 15:57:41,760][__main__][INFO] - 处理第 5/408 批 (2048-2560)
+[2025-10-01 15:57:43,435][__main__][INFO] - 批次 4 保存完成！数据已保存到 E:\hybrid-dna/data/processed/variants_with_embeddings_hyenadna-small-32k-seqlen_batch_3.npz
+[2025-10-01 15:57:48,892][__main__][INFO] - 批次 5 embedding提取完成，已提交保存任务
+[2025-10-01 15:57:48,914][__main__][INFO] - 处理第 6/408 批 (2560-3072)
+[2025-10-01 15:57:52,097][__main__][INFO] - 批次 6 embedding提取完成，已提交保存任务
+[2025-10-01 15:57:58,024][__main__][INFO] - 批次 5 保存完成！数据已保存到 E:\hybrid-dna/data/processed/variants_with_embeddings_hyenadna-small-32k-seqlen_batch_4.npz
+[2025-10-01 15:57:58,045][__main__][INFO] - 处理第 7/408 批 (3072-3584)
+[2025-10-01 15:58:01,055][__main__][INFO] - 批次 6 保存完成！数据已保存到 E:\hybrid-dna/data/processed/variants_with_embeddings_hyenadna-small-32k-seqlen_batch_5.npz
