@@ -227,9 +227,9 @@ class TrueStreamingDataset(Dataset):
             # Return formatted sample data
             # 返回格式化的样本数据
             return {
-                'embedding': torch.tensor(embedding, dtype=torch.float32).unsqueeze(0),  # Add sequence dimension: [D] -> [1, D]
-                'annotation_features': torch.tensor(annotation_features, dtype=torch.float32).unsqueeze(0),  # Add sequence dimension: [D] -> [1, D]
-                'gene_features': torch.tensor(gene_features, dtype=torch.float32).unsqueeze(0),  # Add sequence dimension: [D] -> [1, D]
+                'embedding': torch.tensor(embedding, dtype=torch.float32),  # 保持原始维度
+                'annotation_features': torch.tensor(annotation_features, dtype=torch.float32),  # 保持原始维度
+                'gene_features': torch.tensor(gene_features, dtype=torch.float32),  # 保持原始维度
                 'label': torch.tensor(label, dtype=torch.float32),
                 'varid': varid
             }
@@ -239,9 +239,9 @@ class TrueStreamingDataset(Dataset):
             # 错误处理：返回零向量作为默认值
             print(f"Warning: Failed to read sample (file: {batch_file}, index: {sample_idx}): {e}")
             return {
-                'embedding': torch.zeros(1, 256, dtype=torch.float32),  # Add sequence dimension: [D] -> [1, D]
-                'annotation_features': torch.zeros(1, len(self.annotation_columns), dtype=torch.float32),  # Add sequence dimension: [D] -> [1, D]
-                'gene_features': torch.zeros(1, len(self.gene_columns), dtype=torch.float32),  # Add sequence dimension: [D] -> [1, D]
+                'embedding': torch.zeros(512, 256, dtype=torch.float32),  # 保持正确的维度
+                'annotation_features': torch.zeros(len(self.annotation_columns), dtype=torch.float32),  # 保持正确的维度
+                'gene_features': torch.zeros(len(self.gene_columns), dtype=torch.float32),  # 保持正确的维度
                 'label': torch.tensor(0.0, dtype=torch.float32),
                 'varid': f"error_{sample_idx}"
             }

@@ -5,7 +5,7 @@ variants_file: variants_with_penetrance.common.all.with_info.feats.tsv  # 变异
 reference_genome: hg38.ml.fa         # 参考基因组文件
 
 # 序列参数
-seq_len: 2048                        # 序列长度
+seq_len: 512                        # 序列长度
 center_on_variant: true              # 是否以变异为中心提取序列
 
 # 注释特征列 (变异级别特征，42个)
@@ -102,4 +102,4 @@ gene_columns: [
 train_val_test_split: [0.7, 0.15, 0.15]
 
 # 批处理配置
-batch_size: 10
+batch_size: 512
