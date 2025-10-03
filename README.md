@@ -189,8 +189,8 @@ output = V * A_proj  # 元素级乘法融合
 
 ## 联系方式
 
-- 项目维护者: [Your Name](mailto:your.email@example.com)
-- 项目主页: [https://github.com/yourusername/hybrid-dna](https://github.com/yourusername/hybrid-dna)
+- 项目维护者: [HaoboYang](https://github.com/MELANCHOLY123456)
+- 项目主页: [Hybrid-DNA](https://github.com/yourusername/hybrid-dna)
 - 问题反馈: [Issues](https://github.com/yourusername/hybrid-dna/issues)
 
 ---
