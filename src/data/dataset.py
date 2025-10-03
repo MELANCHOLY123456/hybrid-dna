@@ -127,7 +127,7 @@ class TrueStreamingDataset(Dataset):
         # 将整个文件加载到内存
         file_data = {}
         with np.load(batch_file) as data:
-            file_data['variant_embeddings'] = data['variant_embeddings'].copy()
+            file_data['variant_embeddings'] = data['embeddings'].copy()
             file_data['penetrance_estimates'] = data['penetrance_estimates'].copy()
             file_data['varids'] = data['varids'].copy()
             

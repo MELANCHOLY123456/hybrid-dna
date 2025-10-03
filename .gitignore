@@ -19,3 +19,4 @@ src/models/__pycache__/
 src/utils/__pycache__/
 src/components/__pycache__/
 .idea/
+outputs/
