@@ -50,7 +50,7 @@ class PenetranceDataModule(pl.LightningDataModule):
         
         # Build processed data directory path
         # 构建处理后的数据目录路径
-        processed_dir = os.path.abspath(os.path.join(data_dir, "processed_variant_only"))
+        processed_dir = os.path.abspath(os.path.join(data_dir, "processed"))
         
         print("Scanning batch files...")
         print(f"Scanning directory: {processed_dir}")
@@ -58,14 +58,7 @@ class PenetranceDataModule(pl.LightningDataModule):
         # Validate directory existence
         # 验证目录是否存在
         if not os.path.exists(processed_dir):
-            # Try relative path
-            # 尝试相对路径
-            processed_dir_rel = os.path.join(data_dir, "processed")
-            processed_dir = os.path.abspath(processed_dir_rel)
-            print(f"Trying absolute path: {processed_dir}")
-            
-            if not os.path.exists(processed_dir):
-                raise FileNotFoundError(f"Directory not found: {processed_dir} (original: {processed_dir_rel})")
+            raise FileNotFoundError(f"Directory not found: {processed_dir}")
         
         # Check directory access permissions
         # 检查目录访问权限
@@ -129,6 +122,11 @@ class PenetranceDataModule(pl.LightningDataModule):
         else:
             self._has_setup = True
 
+        # Ensure prepare_data has been called
+        # 确保prepare_data已被调用
+        if self.batch_files is None or self.samples_per_file is None:
+            self.prepare_data()
+
         if stage == "fit" or stage is None:
             # Create streaming dataset
             # 创建流式数据集
@@ -136,7 +134,8 @@ class PenetranceDataModule(pl.LightningDataModule):
                 batch_files=self.batch_files,
                 samples_per_file=self.samples_per_file,
                 annotation_columns=self.cfg.data.annotation_columns,
-                gene_columns=self.cfg.data.gene_columns
+                gene_columns=self.cfg.data.gene_columns,
+                num_workers=self.cfg.loader.num_workers
             )
 
             # Split dataset according to configuration ratios
@@ -145,9 +144,19 @@ class PenetranceDataModule(pl.LightningDataModule):
             val_len = int(len(self.full_dataset) * self.cfg.data.train_val_test_split[1])
             test_len = len(self.full_dataset) - train_len - val_len
 
-            self.train_dataset, self.val_dataset, self.test_dataset = random_split(
-                self.full_dataset, [train_len, val_len, test_len]
-            )
+            # Use sequential split instead of random split to maintain file order
+            # 使用顺序分割而不是随机分割以保持文件顺序
+            from torch.utils.data import Subset
+            
+            # Create sequential indices for train/val/test split
+            # 为训练/验证/测试分割创建顺序索引
+            train_indices = list(range(0, train_len))
+            val_indices = list(range(train_len, train_len + val_len))
+            test_indices = list(range(train_len + val_len, len(self.full_dataset)))
+            
+            self.train_dataset = Subset(self.full_dataset, train_indices)
+            self.val_dataset = Subset(self.full_dataset, val_indices)
+            self.test_dataset = Subset(self.full_dataset, test_indices)
             
             print(f"Dataset split:")
             print(f"   Train: {train_len:,} samples")
@@ -164,7 +173,7 @@ class PenetranceDataModule(pl.LightningDataModule):
             self.train_dataset,
             batch_size=self.cfg.loader.batch_size,
             num_workers=self.cfg.loader.num_workers,
-            shuffle=True,
+            shuffle=False,  # 关闭随机采样以配合单文件内存策略，减少文件切换
             pin_memory=self.cfg.loader.pin_memory,
             persistent_workers=True if self.cfg.loader.num_workers > 0 else False,
             drop_last=self.cfg.loader.drop_last

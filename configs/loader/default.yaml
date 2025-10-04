@@ -1,5 +1,5 @@
 # 数据加载器配置
-batch_size: 200               # 批次大小
-num_workers: 16                # 数据加载工作进程数
-pin_memory: True              # 是否将数据加载到锁页内存中以加速GPU传输
+batch_size: 32                # 批次大小
+num_workers: 4                # 数据加载工作进程数 - 设为0确保按文件顺序处理
+pin_memory: False             # 是否将数据加载到锁页内存中以加速GPU传输 - 关闭节省内存
 drop_last: False              # 是否丢弃最后一个不完整的批次

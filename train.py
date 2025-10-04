@@ -404,7 +404,6 @@ def train(config):
     # Initialize data module
     # 初始化数据模块
     dm = PenetranceDataModule(config)
-    dm.prepare_data()
     dm.setup(stage="fit")
 
     # Initialize model
